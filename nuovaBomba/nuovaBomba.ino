@@ -6,6 +6,7 @@ const byte COLS = 4; //4 columns
 
 
 char pin[] = { 0, 0, 0, 0, 0, 0};
+char timeBombSting[] = { 'h', 'h', 'm', 'm'};
 byte pinIndex = 0;
 
 char specialKeysID[] = {
@@ -33,7 +34,7 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 
 enum  stati {
-  PINSETUP, PIN, SETTIME, PRESSSTART, INFUNZIONE, BOOM, DEFUSE
+  PINSETUP, PIN, SETTIMESETUP, SETTIME, SETUPSTART, PRESSSTART, INFUNZIONE, BOOM, DEFUSE
 };
 
 stati statoBomba = PINSETUP;
@@ -70,13 +71,29 @@ void loop() {
     case PIN:
       {
         if (key) {
-          if (pinIndex < sizeof(pin) / sizeof(pin[0]))
+          if (isDigit(key))
           {
-            pin[pinIndex] = key;
-            update_pin_display();
-            pinIndex++;
+            if (pinIndex < sizeof(pin) / sizeof(pin[0]))
+            {
+              pin[pinIndex] = key;
+              update_pin_display();
+              pinIndex++;
+
+              if (pinIndex >= sizeof(pin) / sizeof(pin[0]))
+                statoBomba = SETTIMESETUP;
+            }
           }
+          else if (key == 'H' && pinIndex >= 4)
+            statoBomba = SETTIMESETUP;
         }
+        delay(40);
+        break;
+      }
+    case SETTIMESETUP:
+      {
+        lcd.setCursor(0, 0);
+        lcd.print("Inserire Tempo");
+        statoBomba = SETTIME;
         delay(40);
         break;
       }
@@ -86,9 +103,21 @@ void loop() {
         break;
       }
 
-
+    case SETUPSTART:
+      {
+        lcd.setCursor(2, 0);
+        lcd.print("Premi Enter");
+        lcd.setCursor(0, 1);
+        lcd.print("Per avviare");
+        statoBomba = PRESSSTART;
+        delay(40);
+        break;
+      }
     case PRESSSTART:
       {
+        if (key)
+          if (key == 'H')
+            statoBomba = INFUNZIONE;
         break;
       }
 
