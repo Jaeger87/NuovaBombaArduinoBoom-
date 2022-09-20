@@ -3,11 +3,16 @@
 
 const byte ROWS = 5; //5 rows
 const byte COLS = 4; //4 columns
+const byte tempoDelay = 40;
 
 
 char pin[] = { 0, 0, 0, 0, 0, 0};
-char timeBombSting[] = { 'h', 'h', 'm', 'm'};
 byte pinIndex = 0;
+int pinTime = 0;
+bool pinUnderscore = false;
+char timeBombString[] = { 'h', 'h', 'm', 'm'};
+byte timeBombIndex = 0;
+
 
 char specialKeysID[] = {
   'A',  'B', '#', '*',
@@ -31,13 +36,15 @@ byte rowPins[ROWS] = {2, 3, 4, 5, 6}; //connect to the row pinouts of the kpd
 byte colPins[COLS] = {10, 9, 8, 7}; //connect to the column pinouts of the kpd
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+unsigned long currentTime = 0;
+unsigned long oldTime = 0;
 
 
 enum  stati {
-  PINSETUP, PIN, SETTIMESETUP, SETTIME, SETUPSTART, PRESSSTART, INFUNZIONE, BOOM, DEFUSE
+  PIN, SETTIME, SETUPSTART, PRESSSTART, INFUNZIONE, BOOM, DEFUSE
 };
 
-stati statoBomba = PINSETUP;
+stati statoBomba = PIN;
 
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -51,104 +58,133 @@ void setup() {
 }
 
 void loop() {
-
+  currentTime = millis();
+  int deltaTime = currentTime - oldTime;
   char key = keypad.getKey();
-  if (key) {
-    Serial.print("Key: ");
-    Serial.println(key);
-  }
   switch (statoBomba)
   {
 
-    case PINSETUP:
-      {
-        lcd.setCursor(2, 0);
-        lcd.print("Inserire PIN");
-        statoBomba = PIN;
-        break;
-      }
-
     case PIN:
       {
+        pinTime += deltaTime;
+        if (pinTime > 1000)
+        {
+          pinTime = 0;
+          pinUnderscore = !pinUnderscore;
+          update_pin_display(pinUnderscore);
+        }
         if (key) {
           if (isDigit(key))
           {
             if (pinIndex < sizeof(pin) / sizeof(pin[0]))
             {
               pin[pinIndex] = key;
-              update_pin_display();
               pinIndex++;
+              update_pin_display(pinUnderscore);
 
               if (pinIndex >= sizeof(pin) / sizeof(pin[0]))
-                statoBomba = SETTIMESETUP;
+                changeState(SETTIME);
             }
           }
           else if (key == 'H' && pinIndex >= 4)
-            statoBomba = SETTIMESETUP;
+            changeState(SETTIME);
         }
-        delay(40);
-        break;
-      }
-    case SETTIMESETUP:
-      {
-        lcd.setCursor(0, 0);
-        lcd.print("Inserire Tempo");
-        statoBomba = SETTIME;
-        delay(40);
+        delay(tempoDelay);
         break;
       }
     case SETTIME:
       {
-        delay(40);
+        Serial.println("aaaaaaaa");
+        update_settime_display();
+        if (key) {
+          if (isDigit(key))
+          {
+            timeBombString[timeBombIndex] = key;
+            timeBombIndex++;
+            if (timeBombIndex >= 4)
+            {
+         
+              changeState(SETUPSTART);
+            }
+              
+          }
+        }
+        delay(tempoDelay);
         break;
       }
-
     case SETUPSTART:
       {
         lcd.setCursor(2, 0);
         lcd.print("Premi Enter");
         lcd.setCursor(0, 1);
         lcd.print("Per avviare");
-        statoBomba = PRESSSTART;
-        delay(40);
+        changeState(PRESSSTART);
+        delay(tempoDelay);
         break;
       }
     case PRESSSTART:
       {
         if (key)
           if (key == 'H')
-            statoBomba = INFUNZIONE;
+            changeState(INFUNZIONE);
+        delay(tempoDelay);
         break;
       }
 
     case INFUNZIONE:
       {
+        delay(tempoDelay);
         break;
       }
     case BOOM:
       {
+        delay(tempoDelay);
         break;
       }
     case DEFUSE:
       {
+        delay(tempoDelay);
         break;
       }
   }
+  oldTime = currentTime;
 }
 
-void update_pin_display()
+void update_pin_display(bool underscore)
 {
-
-
+  lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("Inserire PIN");
   String pinString = "";
   for (int i = 0; i < sizeof(pin) / sizeof(pin[0]); i++)
   {
-
     if (!pin[i])
       break;
     pinString += pin[i];
   }
-
-  lcd.setCursor(2, 1);
+  if (underscore && pinIndex < (sizeof(pin) / sizeof(pin[0])) - 1)
+    pinString += '_';
+  lcd.setCursor(5, 1);
   lcd.print(pinString);
+}
+
+void update_settime_display()
+{
+  lcd.setCursor(1, 0);
+  lcd.print("Inserire Tempo");
+  String timeString = "";
+  timeString += timeBombString[0];
+  timeString += timeBombString[1];
+  timeString += ':';
+  timeString += timeBombString[2];
+  timeString += timeBombString[3];
+  lcd.setCursor(6, 1);
+  Serial.println(timeString);
+  lcd.print(timeString);
+}
+
+void changeState(stati nuovoStato)
+{
+  lcd.clear();
+  statoBomba = nuovoStato;
 }
