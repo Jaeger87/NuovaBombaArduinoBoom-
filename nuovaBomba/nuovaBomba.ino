@@ -100,6 +100,9 @@ void loop() {
           if (isDigit(key)) {
             int keyInt = key - '0';
             if (keyInt <= timeBombDigitLimit[timeBombIndex]) {
+              if (timeBombIndex == 0 && keyInt == 2) {
+                timeBombDigitLimit[1] = 3;
+              }
               timeBombString[timeBombIndex] = key;
               timeBombIndex++;
               if (timeBombIndex >= 4) {
