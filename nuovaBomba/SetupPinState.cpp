@@ -1,5 +1,10 @@
 #include "SetupPinState.h"
 
+SetupPinState::SetupPinState(BombFSM* _bFSM):BombState(_bFSM)
+{
+
+}
+
 void SetupPinState::OnEnter()
 {
   
