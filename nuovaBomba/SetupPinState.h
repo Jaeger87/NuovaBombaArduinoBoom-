@@ -1,3 +1,4 @@
+#pragma once
 #include "BombState.h"
 
 class SetupPinState : public BombState
