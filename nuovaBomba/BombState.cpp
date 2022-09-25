@@ -1,11 +1,6 @@
 #include "BombState.h"
 
-BombState::BombState(BombFSM* _bFSM):bFSM(_bFSM)
+BombState::BombState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd):bFSM(_bFSM), lcd(_lcd)
 {
 
-}
-
-void BombState::ChangeState()
-{
-  
 }

@@ -9,9 +9,7 @@ const byte tempoDelay = 40;
 
 
 char pin[] = { 0, 0, 0, 0, 0, 0 };
-byte pinIndex = 0;
-int pinTime = 0;
-bool pinUnderscore = false;
+
 char timeBombString[] = { 'h', 'h', 'm', 'm' };
 int timeBombDigitLimit[] = { 2, 9, 6, 9 };
 byte timeBombIndex = 0;
@@ -58,48 +56,22 @@ stati statoBomba = PIN;
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-BombFSM bombFSM;
+BombFSM bombFSM(&lcd);
 
 void setup() {
   Serial.begin(9600);
   lcd.init();
   lcd.clear();
   lcd.backlight();
-  bombFSM = BombFSM();
 }
 
 void loop() {
-  currentTime = millis();
-  int deltaTime = currentTime - oldTime;
-  char key = keypad.getKey();
+
   switch (statoBomba) {
 
-    case PIN:
-      {
-        pinTime += deltaTime;
-        if (pinTime > 1000) {
-          pinTime = 0;
-          pinUnderscore = !pinUnderscore;
-          update_pin_display(pinUnderscore);
-        }
-        if (key) {
-          if (isDigit(key)) {
-            if (pinIndex < sizeof(pin) / sizeof(pin[0])) {
-              pin[pinIndex] = key;
-              pinIndex++;
-              update_pin_display(pinUnderscore);
-
-              if (pinIndex >= sizeof(pin) / sizeof(pin[0]))
-                changeState(SETTIME);
-            }
-          } else if (key == 'H' && pinIndex >= 4)
-            changeState(SETTIME);
-        }
-        delay(tempoDelay);
-        break;
-      }
     case SETTIME:
       {
+        /*
         update_settime_display();
         if (key) {
           if (isDigit(key)) {
@@ -118,6 +90,7 @@ void loop() {
           }
         }
         delay(tempoDelay);
+        */
         break;
       }
     case SETUPSTART:
@@ -132,10 +105,12 @@ void loop() {
       }
     case PRESSSTART:
       {
+        /*
         if (key)
           if (key == 'H')
             changeState(INFUNZIONE);
         delay(tempoDelay);
+        */
         break;
       }
 
@@ -158,21 +133,6 @@ void loop() {
   oldTime = currentTime;
 }
 
-void update_pin_display(bool underscore) {
-  lcd.clear();
-  lcd.setCursor(2, 0);
-  lcd.print("Inserire PIN");
-  String pinString = "";
-  for (int i = 0; i < sizeof(pin) / sizeof(pin[0]); i++) {
-    if (!pin[i])
-      break;
-    pinString += pin[i];
-  }
-  if (underscore && pinIndex < (sizeof(pin) / sizeof(pin[0])) - 1)
-    pinString += '_';
-  lcd.setCursor(5, 1);
-  lcd.print(pinString);
-}
 
 void update_settime_display() {
   lcd.setCursor(1, 0);

@@ -6,7 +6,7 @@ class BombFSM
 {
 
   public:
-    BombFSM();
+    BombFSM(LiquidCrystal_I2C* _lcd);
     enum bombStates {
       PIN,
       SETTIME,
@@ -16,11 +16,13 @@ class BombFSM
       BOOM,
       DEFUSE
     };
+    void ChangeState(bombStates newState);
 
 
   private:
     BombState* currentBombState;
     SetupPinState* setupPinState;
+    LiquidCrystal_I2C* lcd;
     void Initialize();
 
 };
