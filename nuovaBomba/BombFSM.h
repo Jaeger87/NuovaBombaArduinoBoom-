@@ -1,6 +1,7 @@
 #pragma once
 #include "BombState.h"
 #include "SetupPinState.h"
+#include "SetTimeState.h"
 
 enum bombStates {
   SETUPPIN,
@@ -25,10 +26,13 @@ class BombFSM
   private:
     BombState* currentBombState;
     SetupPinState* setupPinState;
+    SetTimeState* setTimeState;
     unsigned long currentTime = 0;
     unsigned long oldTime = 0;
+    unsigned long timeBomb = 0;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
+    
     
 
 };

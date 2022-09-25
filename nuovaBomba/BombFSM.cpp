@@ -28,7 +28,7 @@ void BombFSM::ChangeState(bombStates newState)
       }
     case SETTIME:
       {
-
+        currentBombState = setTimeState;
         break;
       }
   }
@@ -39,6 +39,6 @@ void BombFSM::ChangeState(bombStates newState)
 void BombFSM::Initialize()
 {
   setupPinState = new SetupPinState(this, lcd);
-
+  setTimeState = new SetTimeState(this, lcd);
   ChangeState(SETUPPIN);
 }

@@ -10,11 +10,6 @@ const byte tempoDelay = 40;
 
 char pin[] = { 0, 0, 0, 0, 0, 0 };
 
-char timeBombString[] = { 'h', 'h', 'm', 'm' };
-int timeBombDigitLimit[] = { 2, 9, 6, 9 };
-byte timeBombIndex = 0;
-
-
 char specialKeysID[] = {
   'A', 'B', '#', '*',
   '1', '2', '3', 'C',
@@ -117,28 +112,5 @@ void loop() {
           break;
         }
     }
-    oldTime = currentTime;
   */
 }
-
-
-void update_settime_display() {
-  lcd.setCursor(1, 0);
-  lcd.print("Inserire Tempo");
-  String timeString = "";
-  timeString += timeBombString[0];
-  timeString += timeBombString[1];
-  timeString += ':';
-  timeString += timeBombString[2];
-  timeString += timeBombString[3];
-  lcd.setCursor(6, 1);
-  Serial.println(timeString);
-  lcd.print(timeString);
-}
-
-/*
-  void changeState(stati nuovoStato) {
-  lcd.clear();
-  statoBomba = nuovoStato;
-  }
-*/
