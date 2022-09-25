@@ -6,7 +6,6 @@
 enum bombStates {
   SETUPPIN,
   SETTIME,
-  SETUPSTART,
   PRESSSTART,
   INFUNZIONE,
   BOOM,

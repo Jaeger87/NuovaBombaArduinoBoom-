@@ -49,7 +49,7 @@ void setup() {
 void loop() {
   bombFSM.OnLoop();
   delay(tempoDelay);
-  /*
+/*
     switch (statoBomba) {
 
       case SETTIME:
@@ -95,22 +95,6 @@ void loop() {
 
           break;
         }
-
-      case INFUNZIONE:
-        {
-          delay(tempoDelay);
-          break;
-        }
-      case BOOM:
-        {
-          delay(tempoDelay);
-          break;
-        }
-      case DEFUSE:
-        {
-          delay(tempoDelay);
-          break;
-        }
     }
-  */
+    */
 }

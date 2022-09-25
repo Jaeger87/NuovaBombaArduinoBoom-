@@ -2,7 +2,7 @@
 
 BombFSM::BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad): lcd(_lcd), keypad(_keypad)
 {
-  
+
 }
 
 void BombFSM::OnLoop()
@@ -10,7 +10,6 @@ void BombFSM::OnLoop()
   currentTime = millis();
   int deltaTime = currentTime - oldTime;
   char key = keypad->getKey();
-  Serial.println("fsmkkoko");
   currentBombState->OnLoop(deltaTime, key);
   oldTime = currentTime;
 }
@@ -31,6 +30,25 @@ void BombFSM::ChangeState(bombStates newState)
         currentBombState = setTimeState;
         break;
       }
+    case PRESSSTART:
+      {
+        break;
+      }
+
+    case INFUNZIONE:
+      {
+        break;
+      }
+
+    case BOOM:
+      {
+        break;
+      }
+    case DEFUSE:
+      {
+        break;
+      }
+      
   }
   currentBombState->OnEnter();
 }

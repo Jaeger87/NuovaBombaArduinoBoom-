@@ -13,6 +13,6 @@ class SetTimeState : public BombState
     byte timeBombIndex = 0;
     char timeBombString[4];
     int timeBombDigitLimit[4];
-    void UpdateSettimeDisplay();
+    void UpdateSetTimeDisplay();
 
 };

@@ -26,7 +26,24 @@ void SetTimeState::OnEnter()
 
 void SetTimeState::OnLoop(int deltaTime, char key)
 {
+  
+  if (key) {
+    if (isDigit(key)) {
+      int keyInt = key - '0';
+      if (keyInt <= timeBombDigitLimit[timeBombIndex]) {
+        if (timeBombIndex == 0 && keyInt == 2) {
+          timeBombDigitLimit[1] = 3;
+        }
+        timeBombString[timeBombIndex] = key;
+        timeBombIndex++;
+        UpdateSetTimeDisplay();
+        if (timeBombIndex >= 4) {
 
+          bFSM->ChangeState(PRESSSTART);
+        }
+      }
+    }
+  }
 }
 
 void SetTimeState::OnExit()
@@ -35,7 +52,7 @@ void SetTimeState::OnExit()
 }
 
 
-void SetTimeState::UpdateSettimeDisplay() {
+void SetTimeState::UpdateSetTimeDisplay() {
 
   String timeString = "";
   timeString += timeBombString[0];
