@@ -1,4 +1,5 @@
 #include "SetupPinState.h"
+#include "BombFSM.h"
 
 SetupPinState::SetupPinState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd): BombState(_bFSM, _lcd)
 {
@@ -34,15 +35,12 @@ void SetupPinState::OnLoop(int deltaTime, char key)
         pinIndex++;
         update_pin_display(pinUnderscore);
 
-        /*
-                if (pinIndex >= sizeof(pin) / sizeof(pin[0]))
-                 bFSM->changeState(SETTIME);
-              }
-            } else if (key == 'H' && pinIndex >= 4)
-              bFSM->changeState(SETTIME);
-        */
+
+        if (pinIndex >= sizeof(pin) / sizeof(pin[0]))
+          bFSM->ChangeState(SETTIME);
       }
-    }
+    } else if (key == 'H' && pinIndex >= 4)
+      bFSM->ChangeState(SETTIME);
   }
 }
 

@@ -37,26 +37,10 @@ byte rowPins[ROWS] = { 2, 3, 4, 5, 6 };  //connect to the row pinouts of the kpd
 byte colPins[COLS] = { 10, 9, 8, 7 };    //connect to the column pinouts of the kpd
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
-unsigned long currentTime = 0;
-unsigned long oldTime = 0;
-
-
-enum stati {
-  PIN,
-  SETTIME,
-  SETUPSTART,
-  PRESSSTART,
-  INFUNZIONE,
-  BOOM,
-  DEFUSE
-};
-
-stati statoBomba = PIN;
-
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-BombFSM bombFSM(&lcd);
+BombFSM bombFSM(&lcd, &keypad);
 
 void setup() {
   Serial.begin(9600);
@@ -66,12 +50,13 @@ void setup() {
 }
 
 void loop() {
-
+bombFSM.OnLoop();
+delay(tempoDelay);
+/*
   switch (statoBomba) {
 
     case SETTIME:
       {
-        /*
         update_settime_display();
         if (key) {
           if (isDigit(key)) {
@@ -90,7 +75,7 @@ void loop() {
           }
         }
         delay(tempoDelay);
-        */
+        
         break;
       }
     case SETUPSTART:
@@ -105,12 +90,12 @@ void loop() {
       }
     case PRESSSTART:
       {
-        /*
+        
         if (key)
           if (key == 'H')
             changeState(INFUNZIONE);
         delay(tempoDelay);
-        */
+        
         break;
       }
 
@@ -131,6 +116,7 @@ void loop() {
       }
   }
   oldTime = currentTime;
+  */
 }
 
 
@@ -148,7 +134,9 @@ void update_settime_display() {
   lcd.print(timeString);
 }
 
+/*
 void changeState(stati nuovoStato) {
   lcd.clear();
   statoBomba = nuovoStato;
 }
+*/
