@@ -19,6 +19,7 @@ class BombFSM
     BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad);
     void OnLoop();
     void ChangeState(bombStates newState);
+    void Initialize();
 
 
   private:
@@ -28,6 +29,6 @@ class BombFSM
     unsigned long oldTime = 0;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
-    void Initialize();
+    
 
 };

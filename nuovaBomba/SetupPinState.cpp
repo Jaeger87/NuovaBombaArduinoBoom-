@@ -22,6 +22,7 @@ void SetupPinState::OnEnter()
 
 void SetupPinState::OnLoop(int deltaTime, char key)
 {
+  Serial.println("aas");
   pinTime += deltaTime;
   if (pinTime > 1000) {
     pinTime = 0;

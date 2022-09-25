@@ -47,75 +47,77 @@ void setup() {
   lcd.init();
   lcd.clear();
   lcd.backlight();
+  Serial.println("Setup Done");
+  bombFSM.Initialize();
 }
 
 void loop() {
-bombFSM.OnLoop();
-delay(tempoDelay);
-/*
-  switch (statoBomba) {
+  bombFSM.OnLoop();
+  delay(tempoDelay);
+  /*
+    switch (statoBomba) {
 
-    case SETTIME:
-      {
-        update_settime_display();
-        if (key) {
-          if (isDigit(key)) {
-            int keyInt = key - '0';
-            if (keyInt <= timeBombDigitLimit[timeBombIndex]) {
-              if (timeBombIndex == 0 && keyInt == 2) {
-                timeBombDigitLimit[1] = 3;
-              }
-              timeBombString[timeBombIndex] = key;
-              timeBombIndex++;
-              if (timeBombIndex >= 4) {
+      case SETTIME:
+        {
+          update_settime_display();
+          if (key) {
+            if (isDigit(key)) {
+              int keyInt = key - '0';
+              if (keyInt <= timeBombDigitLimit[timeBombIndex]) {
+                if (timeBombIndex == 0 && keyInt == 2) {
+                  timeBombDigitLimit[1] = 3;
+                }
+                timeBombString[timeBombIndex] = key;
+                timeBombIndex++;
+                if (timeBombIndex >= 4) {
 
-                changeState(SETUPSTART);
+                  changeState(SETUPSTART);
+                }
               }
             }
           }
-        }
-        delay(tempoDelay);
-        
-        break;
-      }
-    case SETUPSTART:
-      {
-        lcd.setCursor(2, 0);
-        lcd.print("Premi Enter");
-        lcd.setCursor(0, 1);
-        lcd.print("Per avviare");
-        changeState(PRESSSTART);
-        delay(tempoDelay);
-        break;
-      }
-    case PRESSSTART:
-      {
-        
-        if (key)
-          if (key == 'H')
-            changeState(INFUNZIONE);
-        delay(tempoDelay);
-        
-        break;
-      }
+          delay(tempoDelay);
 
-    case INFUNZIONE:
-      {
-        delay(tempoDelay);
-        break;
-      }
-    case BOOM:
-      {
-        delay(tempoDelay);
-        break;
-      }
-    case DEFUSE:
-      {
-        delay(tempoDelay);
-        break;
-      }
-  }
-  oldTime = currentTime;
+          break;
+        }
+      case SETUPSTART:
+        {
+          lcd.setCursor(2, 0);
+          lcd.print("Premi Enter");
+          lcd.setCursor(0, 1);
+          lcd.print("Per avviare");
+          changeState(PRESSSTART);
+          delay(tempoDelay);
+          break;
+        }
+      case PRESSSTART:
+        {
+
+          if (key)
+            if (key == 'H')
+              changeState(INFUNZIONE);
+          delay(tempoDelay);
+
+          break;
+        }
+
+      case INFUNZIONE:
+        {
+          delay(tempoDelay);
+          break;
+        }
+      case BOOM:
+        {
+          delay(tempoDelay);
+          break;
+        }
+      case DEFUSE:
+        {
+          delay(tempoDelay);
+          break;
+        }
+    }
+    oldTime = currentTime;
   */
 }
 
@@ -135,8 +137,8 @@ void update_settime_display() {
 }
 
 /*
-void changeState(stati nuovoStato) {
+  void changeState(stati nuovoStato) {
   lcd.clear();
   statoBomba = nuovoStato;
-}
+  }
 */
