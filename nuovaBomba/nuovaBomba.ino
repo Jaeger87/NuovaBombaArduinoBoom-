@@ -1,3 +1,5 @@
+#include "BombFSM.h"
+
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 
@@ -56,11 +58,14 @@ stati statoBomba = PIN;
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
+BombFSM bombFSM;
+
 void setup() {
   Serial.begin(9600);
   lcd.init();
   lcd.clear();
   lcd.backlight();
+  bombFSM = BombFSM();
 }
 
 void loop() {

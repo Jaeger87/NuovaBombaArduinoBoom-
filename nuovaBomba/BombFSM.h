@@ -1,9 +1,13 @@
 #pragma once
+#include "BombState.h"
+#include "SetupPinState.h"
 
 class BombFSM
 {
 
-      enum bombStates {
+  public:
+    BombFSM();
+    enum bombStates {
       PIN,
       SETTIME,
       SETUPSTART,
@@ -12,4 +16,11 @@ class BombFSM
       BOOM,
       DEFUSE
     };
+
+
+  private:
+    BombState* currentBombState;
+    SetupPinState* setupPinState;
+    void Initialize();
+
 };
