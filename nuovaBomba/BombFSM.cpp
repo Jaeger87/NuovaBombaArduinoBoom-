@@ -35,7 +35,7 @@ void BombFSM::ChangeState(bombStates newState)
         break;
       }
 
-    case INFUNZIONE:
+    case TRIGGERED:
       {
         break;
       }

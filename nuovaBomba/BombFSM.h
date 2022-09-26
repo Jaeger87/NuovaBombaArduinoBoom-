@@ -7,7 +7,7 @@ enum bombStates {
   SETUPPIN,
   SETTIME,
   PRESSSTART,
-  INFUNZIONE,
+  TRIGGERED,
   BOOM,
   DEFUSE
 };
@@ -31,6 +31,7 @@ class BombFSM
     unsigned long timeBomb = 0;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
+    char pin[6];
     
     
 
