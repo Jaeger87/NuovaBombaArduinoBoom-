@@ -77,10 +77,7 @@ void loop() {
         }
       case SETUPSTART:
         {
-          lcd.setCursor(2, 0);
-          lcd.print("Premi Enter");
-          lcd.setCursor(0, 1);
-          lcd.print("Per avviare");
+
           changeState(PRESSSTART);
           delay(tempoDelay);
           break;

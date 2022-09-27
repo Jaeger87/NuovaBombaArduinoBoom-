@@ -10,8 +10,10 @@ void PressStartState::OnEnter()
 {
 
   lcd->clear();
-  lcd->setCursor(2, 0);
-  lcd->print("Inserire PIN");
+  lcd->setCursor(3, 0);
+  lcd->print("Premi Enter");
+  lcd->setCursor(3, 1);
+  lcd->print("Per avviare");
 }
 
 void PressStartState::OnLoop(int deltaTime, char key)
@@ -23,4 +25,3 @@ void PressStartState::OnExit()
 {
 
 }
-

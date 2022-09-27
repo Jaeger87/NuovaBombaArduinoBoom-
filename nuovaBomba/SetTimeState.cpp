@@ -8,6 +8,7 @@ SetTimeState::SetTimeState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd): BombState(_
 
 void SetTimeState::OnEnter()
 {
+  timeBombIndex = 0;
   timeBombString[0] = 'h';
   timeBombString[1] = 'h';
   timeBombString[2] = 'm';
@@ -22,6 +23,7 @@ void SetTimeState::OnEnter()
   lcd->clear();
   lcd->setCursor(1, 0);
   lcd->print("Inserire Tempo");
+  UpdateSetTimeDisplay();
 }
 
 void SetTimeState::OnLoop(int deltaTime, char key)

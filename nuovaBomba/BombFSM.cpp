@@ -32,11 +32,13 @@ void BombFSM::ChangeState(bombStates newState)
       }
     case PRESSSTART:
       {
+        currentBombState = pressStartState;
         break;
       }
 
     case TRIGGERED:
       {
+        currentBombState = triggeredState;
         break;
       }
 
@@ -48,15 +50,54 @@ void BombFSM::ChangeState(bombStates newState)
       {
         break;
       }
-      
+
   }
   currentBombState->OnEnter();
 }
 
-
 void BombFSM::Initialize()
 {
+  bombPin[0] = 0;
+  bombPin[1] = 0;
+  bombPin[2] = 0;
+  bombPin[3] = 0;
+  bombPin[4] = 0;
+  bombPin[5] = 0;
   setupPinState = new SetupPinState(this, lcd);
   setTimeState = new SetTimeState(this, lcd);
+  pressStartState = new PressStartState(this, lcd);
+  triggeredState = new TriggeredState(this, lcd);
   ChangeState(SETUPPIN);
+}
+
+bool BombFSM::CheckPin(char* pin, int lengthPin)
+{
+  if (bombPin[0] != pin[0])
+    return false;
+  if (bombPin[1] != pin[1])
+    return false;
+  if (bombPin[2] != pin[2])
+    return false;
+  if (bombPin[3] != pin[3])
+    return false;
+  if (bombPin[4] != pin[4])
+    return false;
+  if (bombPin[5] != pin[5])
+    return false;
+  return true;
+}
+
+void BombFSM::SetPin(char* pin)
+{
+  bombPin[0] = pin[0];
+  bombPin[1] = pin[1];
+  bombPin[2] = pin[2];
+  bombPin[3] = pin[3];
+  bombPin[4] = pin[4];
+  bombPin[5] = pin[5];
+}
+
+void BombFSM::SetTime(unsigned long _TimeBomb)
+{
+  timeBomb = _TimeBomb;
 }

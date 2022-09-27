@@ -46,7 +46,7 @@ void SetupPinState::OnLoop(int deltaTime, char key)
 
 void SetupPinState::OnExit()
 {
-
+  bFSM->SetPin(pin);
 }
 
 

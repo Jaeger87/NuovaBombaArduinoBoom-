@@ -1,10 +1,10 @@
 #pragma once
 #include "BombState.h"
 
-class TriggeredState : public BombState
+class BoomState : public BombState
 {
   public:
-    TriggeredState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd);
+    BoomState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd);
     void OnEnter() override;
     void OnLoop(int deltaTime, char key) override;
     void OnExit() override;

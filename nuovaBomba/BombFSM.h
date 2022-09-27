@@ -2,6 +2,8 @@
 #include "BombState.h"
 #include "SetupPinState.h"
 #include "SetTimeState.h"
+#include "PressStartState.h"
+#include "TriggeredState.h"
 
 enum bombStates {
   SETUPPIN,
@@ -20,18 +22,23 @@ class BombFSM
     void OnLoop();
     void ChangeState(bombStates newState);
     void Initialize();
+    bool CheckPin(char* pin, int lengthPin);
+    void SetPin(char* pin);
+    void SetTime(unsigned long _TimeBomb);
 
 
   private:
     BombState* currentBombState;
     SetupPinState* setupPinState;
     SetTimeState* setTimeState;
+    PressStartState* pressStartState;
+    TriggeredState* triggeredState;
     unsigned long currentTime = 0;
     unsigned long oldTime = 0;
     unsigned long timeBomb = 0;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
-    char pin[6];
+    char bombPin[6];
     
     
 
