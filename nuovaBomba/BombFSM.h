@@ -27,7 +27,7 @@ class BombFSM
     bool CheckPin(char* pin, int lengthPin);
     void SetPin(char* pin);
     void SetTime(unsigned long _TimeBomb);
-    unsigned long GetTime();
+    long GetTime();
 
   private:
     BombState* currentBombState;
@@ -39,7 +39,7 @@ class BombFSM
     DefuseState* defuseState;
     unsigned long currentTime = 0;
     unsigned long oldTime = 0;
-    unsigned long timeBomb = 0;
+    long timeBomb = 0;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
     char bombPin[6];

@@ -10,5 +10,6 @@ class TriggeredState : public BombState
     void OnExit() override;
   private:
     void PrintTime();
-    unsigned long timeBomb = 0;
+    long timeBomb = 0;
+    long prev_timeBomb = 0;
 };

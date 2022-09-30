@@ -44,10 +44,12 @@ void BombFSM::ChangeState(bombStates newState)
 
     case BOOM:
       {
+        currentBombState = boomState;
         break;
       }
     case DEFUSE:
       {
+        currentBombState = defuseState;
         break;
       }
 
@@ -67,6 +69,8 @@ void BombFSM::Initialize()
   setTimeState = new SetTimeState(this, lcd);
   pressStartState = new PressStartState(this, lcd);
   triggeredState = new TriggeredState(this, lcd);
+  boomState = new BoomState(this, lcd);
+  defuseState = new DefuseState(this, lcd);
   ChangeState(SETUPPIN);
 }
 
@@ -102,7 +106,7 @@ void BombFSM::SetTime(unsigned long _TimeBomb)
   timeBomb = _TimeBomb;
 }
 
-unsigned long BombFSM::GetTime()
+long BombFSM::GetTime()
 {
   return timeBomb;
 }

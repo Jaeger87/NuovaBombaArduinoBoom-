@@ -50,12 +50,13 @@ void SetTimeState::OnLoop(int deltaTime, char key)
 
 void SetTimeState::OnExit()
 {
-  unsigned long timeBomb = 0;
-  timeBomb += (long)1000 * 60 * (timeBombDigitLimit[3] - '0');
-  timeBomb += (long)1000 * 60 * 10 * (timeBombDigitLimit[2] - '0');
-  timeBomb += (long)1000 * 60 * 60 * (timeBombDigitLimit[1] - '0');
-  timeBomb += (long)1000 * 60 * 60 * 10 * (timeBombDigitLimit[0] - '0');
+  long timeBomb = 0;
+  timeBomb += (long)1000 * 60 * (timeBombString[3] - '0');
+  timeBomb += (long)1000 * 60 * 10 * (timeBombString[2] - '0');
+  timeBomb += (long)1000 * 60 * 60 * (timeBombString[1] - '0');
+  timeBomb += (long)1000 * 60 * 60 * 10 * (timeBombString[0] - '0');
 
+  Serial.println(timeBomb);
   bFSM->SetTime(timeBomb);
 }
 
@@ -69,6 +70,5 @@ void SetTimeState::UpdateSetTimeDisplay() {
   timeString += timeBombString[2];
   timeString += timeBombString[3];
   lcd->setCursor(6, 1);
-  Serial.println(timeString);
   lcd->print(timeString);
 }

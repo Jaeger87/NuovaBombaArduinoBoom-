@@ -9,7 +9,7 @@ BoomState::BoomState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd): BombState(_bFSM, 
 void BoomState::OnEnter()
 {
   lcd->clear();
-  lcd->setCursor(5, 0);
+  lcd->setCursor(6, 0);
   lcd->print("Boom");
 }
 
