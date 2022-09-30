@@ -23,7 +23,7 @@ void TriggeredState::OnLoop(int deltaTime, char key)
   PrintTime();
   if (timeBomb <= 0)
     bFSM->ChangeState(BOOM);
-    
+
   prev_timeBomb = timeBomb;
 }
 
@@ -36,10 +36,29 @@ void TriggeredState::PrintTime()
 {
   long timeForPrint = timeBomb;
   timeForPrint -= timeForPrint % 100;
-  int decimalsPart = timeForPrint % 1000;
-  int decimals = decimalsPart / 100;
+
+  long decimalsPart = timeForPrint % 1000;
+  long decimals = decimalsPart / 100;
+  timeForPrint -= decimalsPart;
+
+  long secondsPart = timeForPrint % 60000;
+  long seconds = secondsPart / 1000;
+  timeForPrint -= secondsPart;
+
+  long minutesPart = timeForPrint % 3600000;
+  long minutes = minutesPart / 60000;
+  timeForPrint -= minutesPart;
+
   lcd->setCursor(12, 1);
   lcd->print((char)('0' + decimals));
   lcd->setCursor(11, 1);
   lcd->print(".");
+  lcd->setCursor(9, 1);
+  lcd->print(seconds);
+  lcd->setCursor(8, 1);
+  lcd->print(":");
+  lcd->setCursor(6, 1);
+  lcd->print(minutes);
+  lcd->setCursor(5, 1);
+  lcd->print(":");
 }
