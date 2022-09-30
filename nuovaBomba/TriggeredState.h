@@ -8,5 +8,7 @@ class TriggeredState : public BombState
     void OnEnter() override;
     void OnLoop(int deltaTime, char key) override;
     void OnExit() override;
-
+  private:
+    void PrintTime();
+    unsigned long timeBomb = 0;
 };

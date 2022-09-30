@@ -101,3 +101,8 @@ void BombFSM::SetTime(unsigned long _TimeBomb)
 {
   timeBomb = _TimeBomb;
 }
+
+unsigned long BombFSM::GetTime()
+{
+  return timeBomb;
+}

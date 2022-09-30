@@ -4,6 +4,8 @@
 #include "SetTimeState.h"
 #include "PressStartState.h"
 #include "TriggeredState.h"
+#include "BoomState.h"
+#include "DefuseState.h"
 
 enum bombStates {
   SETUPPIN,
@@ -25,7 +27,7 @@ class BombFSM
     bool CheckPin(char* pin, int lengthPin);
     void SetPin(char* pin);
     void SetTime(unsigned long _TimeBomb);
-
+    unsigned long GetTime();
 
   private:
     BombState* currentBombState;
@@ -33,6 +35,8 @@ class BombFSM
     SetTimeState* setTimeState;
     PressStartState* pressStartState;
     TriggeredState* triggeredState;
+    BoomState* boomState;
+    DefuseState* defuseState;
     unsigned long currentTime = 0;
     unsigned long oldTime = 0;
     unsigned long timeBomb = 0;

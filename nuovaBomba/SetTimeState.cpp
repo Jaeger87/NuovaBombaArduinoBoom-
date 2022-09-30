@@ -50,7 +50,13 @@ void SetTimeState::OnLoop(int deltaTime, char key)
 
 void SetTimeState::OnExit()
 {
+  unsigned long timeBomb = 0;
+  timeBomb += (long)1000 * 60 * (timeBombDigitLimit[3] - '0');
+  timeBomb += (long)1000 * 60 * 10 * (timeBombDigitLimit[2] - '0');
+  timeBomb += (long)1000 * 60 * 60 * (timeBombDigitLimit[1] - '0');
+  timeBomb += (long)1000 * 60 * 60 * 10 * (timeBombDigitLimit[0] - '0');
 
+  bFSM->SetTime(timeBomb);
 }
 
 
