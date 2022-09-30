@@ -7,9 +7,6 @@ const byte ROWS = 5;  //5 rows
 const byte COLS = 4;  //4 columns
 const byte tempoDelay = 40;
 
-
-char pin[] = { 0, 0, 0, 0, 0, 0 };
-
 char specialKeysID[] = {
   'A', 'B', '#', '*',
   '1', '2', '3', 'C',
@@ -49,49 +46,4 @@ void setup() {
 void loop() {
   bombFSM.OnLoop();
   delay(tempoDelay);
-/*
-    switch (statoBomba) {
-
-      case SETTIME:
-        {
-          update_settime_display();
-          if (key) {
-            if (isDigit(key)) {
-              int keyInt = key - '0';
-              if (keyInt <= timeBombDigitLimit[timeBombIndex]) {
-                if (timeBombIndex == 0 && keyInt == 2) {
-                  timeBombDigitLimit[1] = 3;
-                }
-                timeBombString[timeBombIndex] = key;
-                timeBombIndex++;
-                if (timeBombIndex >= 4) {
-
-                  changeState(SETUPSTART);
-                }
-              }
-            }
-          }
-          delay(tempoDelay);
-
-          break;
-        }
-      case SETUPSTART:
-        {
-
-          changeState(PRESSSTART);
-          delay(tempoDelay);
-          break;
-        }
-      case PRESSSTART:
-        {
-
-          if (key)
-            if (key == 'H')
-              changeState(INFUNZIONE);
-          delay(tempoDelay);
-
-          break;
-        }
-    }
-    */
 }

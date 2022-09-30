@@ -18,7 +18,9 @@ void PressStartState::OnEnter()
 
 void PressStartState::OnLoop(int deltaTime, char key)
 {
-
+  if (key)
+    if (key == 'H')
+      bFSM->ChangeState(TRIGGERED);
 }
 
 void PressStartState::OnExit()
