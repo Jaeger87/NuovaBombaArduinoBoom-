@@ -12,4 +12,5 @@ class TriggeredState : public BombState
     void PrintTime();
     long timeBomb = 0;
     long prev_timeBomb = 0;
+    char pin[6];
 };

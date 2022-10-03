@@ -9,11 +9,16 @@ TriggeredState::TriggeredState(BombFSM* _bFSM, LiquidCrystal_I2C* _lcd): BombSta
 void TriggeredState::OnEnter()
 {
   lcd->clear();
-  lcd->setCursor(1, 0);
-  lcd->print("Esplosione in:");
+  lcd->setCursor(6, 0);
+  lcd->print("Pin");
   timeBomb = bFSM->GetTime();
   PrintTime();
-
+  pin[0] = 0;
+  pin[1] = 0;
+  pin[2] = 0;
+  pin[3] = 0;
+  pin[4] = 0;
+  pin[5] = 0;
 }
 
 void TriggeredState::OnLoop(int deltaTime, char key)
@@ -49,16 +54,12 @@ void TriggeredState::PrintTime()
   long minutes = minutesPart / 60000;
   timeForPrint -= minutesPart;
 
-  lcd->setCursor(12, 1);
-  lcd->print((char)('0' + decimals));
-  lcd->setCursor(11, 1);
-  lcd->print(".");
-  lcd->setCursor(9, 1);
-  lcd->print(seconds);
-  lcd->setCursor(8, 1);
-  lcd->print(":");
-  lcd->setCursor(6, 1);
-  lcd->print(minutes);
-  lcd->setCursor(5, 1);
-  lcd->print(":");
+  long hours = timeForPrint / 3600000;
+  String zero = "0";
+  String hourString = (hours > 9 ? String(hours) : String(zero + hours)) + ":";
+  String minuteString = (minutes > 9 ? String(minutes) : String(zero + minutes)) + ":";
+  String secondsString = (seconds > 9 ? String(seconds) : String(zero + seconds)) + "." + decimals;
+  lcd->setCursor(3, 1);
+  lcd->print(String(hourString + minuteString + secondsString));
+
 }
