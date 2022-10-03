@@ -74,7 +74,7 @@ void BombFSM::Initialize()
   ChangeState(SETUPPIN);
 }
 
-bool BombFSM::CheckPin(char* pin, int lengthPin)
+bool BombFSM::CheckPin(char* pin)
 {
   if (bombPin[0] != pin[0])
     return false;

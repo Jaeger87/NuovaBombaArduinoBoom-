@@ -11,7 +11,7 @@ void DefuseState::OnEnter()
   lcd->clear();
   lcd->setCursor(5, 0);
   lcd->print("Bomba");
-  lcd->setCursor(0, 1);
+  lcd->setCursor(2, 1);
   lcd->print("Disinnescata");
 }
 

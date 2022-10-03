@@ -10,7 +10,10 @@ class TriggeredState : public BombState
     void OnExit() override;
   private:
     void PrintTime();
+    void ResetPin();
+    void UpdateDisplayPin();
     long timeBomb = 0;
     long prev_timeBomb = 0;
     char pin[6];
+    int pinIndex = 0;
 };

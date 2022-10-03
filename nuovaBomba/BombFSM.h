@@ -24,7 +24,7 @@ class BombFSM
     void OnLoop();
     void ChangeState(bombStates newState);
     void Initialize();
-    bool CheckPin(char* pin, int lengthPin);
+    bool CheckPin(char* pin);
     void SetPin(char* pin);
     void SetTime(unsigned long _TimeBomb);
     long GetTime();
