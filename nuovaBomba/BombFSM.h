@@ -20,7 +20,7 @@ class BombFSM
 {
 
   public:
-    BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad);
+    BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad, byte _sirenaPin);
     void OnLoop();
     void ChangeState(bombStates newState);
     void Initialize();
@@ -28,6 +28,7 @@ class BombFSM
     void SetPin(char* pin);
     void SetTime(unsigned long _TimeBomb);
     long GetTime();
+    void PlaySiren();
 
   private:
     BombState* currentBombState;
@@ -40,6 +41,7 @@ class BombFSM
     unsigned long currentTime = 0;
     unsigned long oldTime = 0;
     long timeBomb = 0;
+    byte sirenaPin;
     LiquidCrystal_I2C* lcd;
     Keypad* keypad;
     char bombPin[6];

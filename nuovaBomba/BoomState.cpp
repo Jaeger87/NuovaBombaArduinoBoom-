@@ -11,6 +11,7 @@ void BoomState::OnEnter()
   lcd->clear();
   lcd->setCursor(6, 0);
   lcd->print("Boom");
+  bFSM->PlaySiren();
 }
 
 void BoomState::OnLoop(int deltaTime, char key)

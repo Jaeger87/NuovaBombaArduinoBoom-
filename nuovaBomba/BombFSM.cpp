@@ -1,6 +1,6 @@
 #include "BombFSM.h"
 
-BombFSM::BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad): lcd(_lcd), keypad(_keypad)
+BombFSM::BombFSM(LiquidCrystal_I2C* _lcd, Keypad* _keypad, byte _sirenaPin): lcd(_lcd), keypad(_keypad), sirenaPin(_sirenaPin)
 {
 
 }
@@ -109,4 +109,9 @@ void BombFSM::SetTime(unsigned long _TimeBomb)
 long BombFSM::GetTime()
 {
   return timeBomb;
+}
+
+void BombFSM::PlaySiren()
+{
+  digitalWrite(sirenaPin, HIGH);
 }

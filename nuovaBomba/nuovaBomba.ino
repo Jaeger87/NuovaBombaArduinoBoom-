@@ -3,6 +3,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 
+const byte sirena = 11;
 const byte ROWS = 5;  //5 rows
 const byte COLS = 4;  //4 columns
 const byte tempoDelay = 40;
@@ -32,15 +33,17 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-BombFSM bombFSM(&lcd, &keypad);
+BombFSM bombFSM(&lcd, &keypad, sirena);
 
 void setup() {
   Serial.begin(9600);
   lcd.init();
   lcd.clear();
   lcd.backlight();
-  Serial.println("Setup Done");
+  pinMode(sirena, OUTPUT);
+  digitalWrite(sirena, LOW);
   bombFSM.Initialize();
+  Serial.println("Setup Done");
 }
 
 void loop() {
